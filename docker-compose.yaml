@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  server:
+    build: .
+    environment:
+      VERBOSE: "true"
+    ports:
+    - 8080:8080
+  client:
+    image: wbitt/network-multitool:latest
+    depends_on:
+      - server
+    command: 
+    - telnet 
+    - server 
+    - '8080'
+    - '<<<'
+    - '{"user_id": 1, "friends": [2, 3, 4]}'
